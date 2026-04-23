@@ -11,53 +11,58 @@ class JourneysView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = JourneysCubit();
+    
     return BlocProvider(
-      create: (context) => cubit,
-      child: Scaffold(
-            body: BlocBuilder<JourneysCubit, List<JourneysState>>(
-              builder: (context, state) {
-                if (state.isEmpty) {
-                  debugPrint("Список пуст");
-                }
-                return ListView.builder(
-                  itemCount: state.length,
-                  itemBuilder: (context, index) {
-                    final obj = state[index];
-                    return CardJourneys(
-                      title: obj.title,
-                      startDate: obj.startDate,
-                      endDate: obj.endDate,
+      create: (context) => JourneysCubit(),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+                body: BlocBuilder<JourneysCubit, List<JourneysState>>(
+                  builder: (context, state) {
+                    if (state.isEmpty) {
+                      debugPrint("Список пуст");
+                    }
+                    return ListView.builder(
+                      itemCount: state.length,
+                      itemBuilder: (context, index) {
+                        final obj = state[index];
+                        return CardJourneys(
+                          title: obj.title,
+                          startDate: obj.startDate,
+                          endDate: obj.endDate,
+                        );
+                      },
                     );
                   },
-                );
-              },
-            ),
-            floatingActionButton: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FloatingActionButton(
-                  backgroundColor: Colors.black12,
-                  elevation: 0,
-                  highlightElevation: 0,
-                  onPressed: () {
-                    dialogCubit(context, cubit);
-                  },
-                  child: const Icon(Icons.add, color: Colors.black54, size: 25),
                 ),
-                SizedBox(height: 10),
-                FloatingActionButton(
-                  backgroundColor: Colors.black12,
-                  elevation: 0,
-                  highlightElevation: 0,
-                  onPressed: () {
-                    journeyEditDialog(context);
-                  },
-                  child: Icon(Icons.edit, color: Colors.black54, size: 25),
+                floatingActionButton: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FloatingActionButton(
+                      backgroundColor: Colors.black12,
+                      elevation: 0,
+                      highlightElevation: 0,
+                      onPressed: () {
+                        final cubit = context.read<JourneysCubit>();
+                        returnDialogCubit(context, cubit);
+                      },
+                      child: const Icon(Icons.add, color: Colors.black54, size: 25),
+                    ),
+                    SizedBox(height: 10),
+                    FloatingActionButton(
+                      backgroundColor: Colors.black12,
+                      elevation: 0,
+                      highlightElevation: 0,
+                      onPressed: () {
+                        journeyEditDialog(context);
+                      },
+                      child: Icon(Icons.edit, color: Colors.black54, size: 25),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              );
+        }
+      ),
     );
   }
 }
