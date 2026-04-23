@@ -1,21 +1,41 @@
-import 'package:bonbagage/view/journeys_view.dart';
 import 'package:flutter/material.dart';
+import 'package:bonbagage/view/journeys_view.dart';
+import 'package:bonbagage/view/bags_view.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() => runApp(const MyApp());
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MyAppState extends State<MyApp> {
+  
+  String? selectedJourney; 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BonBagage',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+      
+      home: Navigator(
+        pages: [
+          MaterialPage(
+            key: const ValueKey('JourneysPage'),
+            child: JourneysView(
+             
+              onTap: (title) => setState(() => selectedJourney = title),
+            ),
+          ),
+          if (selectedJourney != null)
+            const MaterialPage(
+              key: ValueKey('BagsPage'),
+              child: BagsView(),
+            ),
+        ],
+        
       ),
-      home: JourneysView(),
     );
   }
 }

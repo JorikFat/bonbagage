@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:bonbagage/widget/journeys_card_widget.dart';
 
 class JourneysView extends StatelessWidget {
-  const JourneysView({super.key});
+  final void Function(String)? onTap;
+
+  const JourneysView({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +17,19 @@ class JourneysView extends StatelessWidget {
             title: "Москва",
             startDate: "01.01.2026",
             endDate: "10.01.2026",
+            onTap: onTap,
           ),
           CardJourneys(
             title: "Питер",
             startDate: "10.02.2026",
             endDate: "20.02.2026",
+            onTap: onTap,
           ),
           CardJourneys(
             title: "Казань",
             startDate: "20.03.2026",
             endDate: "30.03.2026",
+            onTap: onTap,
           ),
         ],
       ),
