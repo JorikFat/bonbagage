@@ -40,7 +40,7 @@ class JourneysView extends StatelessWidget {
               highlightElevation: 0,
               onPressed: () {
                 final cubit = context.read<JourneysCubit>();
-                returnDialogCubit(context, cubit);
+                showDialogAdd(context, cubit);
               },
               child: const Icon(Icons.add, color: Colors.black54, size: 25),
             ),

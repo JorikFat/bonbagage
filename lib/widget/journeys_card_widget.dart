@@ -24,7 +24,7 @@ class CardJourneys extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         final cubit = context.read<JourneysCubit>();
-        returnEditDialogCubit(context, city, startDate, endDate, id, cubit);
+        showDialogEdit(context, city, startDate, endDate, id, cubit);
       },
       child: Card(
         color: Color(0xFFf2f2f2),
