@@ -17,6 +17,11 @@ class DialogEditjourneyWidget extends StatelessWidget {
     final BorderRadius border = BorderRadius.all(Radius.circular(12));
     final BorderSide borderSide = BorderSide(width: 3, color: Colors.black26);
 
+    final elevatedButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: Colors.black12,
+      shape: RoundedRectangleBorder(borderRadius: border),
+    );
+
     final focusedBorderTextField = OutlineInputBorder(
       borderRadius: border,
       borderSide: borderSide,
@@ -25,11 +30,6 @@ class DialogEditjourneyWidget extends StatelessWidget {
     final enableBorderTextField = OutlineInputBorder(
       borderRadius: border,
       borderSide: borderSide,
-    );
-
-    final elevatedButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.black12,
-      shape: RoundedRectangleBorder(borderRadius: border),
     );
 
     return AlertDialog(

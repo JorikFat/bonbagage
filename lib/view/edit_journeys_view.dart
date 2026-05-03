@@ -9,7 +9,6 @@ void main() {
 
 class EditJourneysView extends StatelessWidget {
   const EditJourneysView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
