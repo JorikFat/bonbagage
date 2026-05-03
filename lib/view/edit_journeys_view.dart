@@ -1,3 +1,4 @@
+import 'package:bonbagage/widget/dialog_editJourney_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,9 @@ class EditJourneysView extends StatelessWidget {
         title: Text("Москва"),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showEditJourneyDialog(context);
+            },
             icon: Icon(Icons.add),
           )
         ],
