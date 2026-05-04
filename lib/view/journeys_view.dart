@@ -20,18 +20,33 @@ class JourneysView extends StatelessWidget {
                 if (state.isEmpty) {
                   debugPrint("Список пуст");
                 }
-                return ListView.builder(
-                  itemCount: state.length,
-                  itemBuilder: (context, index) {
-                    final obj = state[index];
-                    return CardJourneys(
-                      city: obj.title,
-                      startDate: obj.startDate,
-                      endDate: obj.endDate,
-                      id: obj.id,
-                    );
-                  },
-                );
+                return state.isEmpty
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Text(
+                              "Путешествий нет",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : ListView.builder(
+                        itemCount: state.length,
+                        itemBuilder: (context, index) {
+                          final obj = state[index];
+                          return CardJourneys(
+                            city: obj.title,
+                            startDate: obj.startDate,
+                            endDate: obj.endDate,
+                            id: obj.id,
+                          );
+                        },
+                      );
               },
             ),
             floatingActionButton: FloatingActionButton(
