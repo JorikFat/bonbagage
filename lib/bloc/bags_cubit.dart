@@ -1,15 +1,18 @@
 import 'package:bonbagage/bloc/bags_state.dart';
+import 'package:bonbagage/model/things_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BagsCubit extends Cubit<List<BagsState>> {
   BagsCubit() : super([]);
 
   int idCounter = 0;
+  int idThing = 0;
 
   void addBags(String title) {
     final newBags = BagsState(
       id: idCounter++,
-      title: title
+      title: title,
+      things: []
     );
 
     emit([...state, newBags]);
@@ -35,5 +38,24 @@ class BagsCubit extends Cubit<List<BagsState>> {
     delete.removeWhere((bags) => bags.id == id);
 
     emit(delete);
+  }
+
+  void addThingInList(String title, int id) {
+    final addThing = state.map((thing) {
+      if (thing.id == id) {
+        final thingsList = Thing(
+          id: DateTime.now().millisecondsSinceEpoch,
+          name: title
+        );
+        final List<Thing> updateList = List.from(thing.things)..add(thingsList);
+        final copyThing = thing.copyWith(
+          things: updateList,
+        );
+        return copyThing;
+      } else {
+        return thing;
+      }
+    }).toList();
+    emit(addThing);
   }
 }
