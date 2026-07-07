@@ -51,22 +51,35 @@ class BagsCardWidget extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 1,
+                  itemCount: bag.things.length,
                   itemBuilder: (context, index) {
+                    final things = bag.things[index];
                     return Align(
                       alignment: Alignment.topLeft,
                       child: Column(
-                      children: bag.things.map((things) {
-                        return Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(things.name),
-                        );
-                      }).toList(),
-                                        ),
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                Text(things.name),
+                                GestureDetector(
+                                  onTap: () {
+                                    final cubit = context.read<BagsCubit>();
+                                    cubit.deleteThings(things.id);
+                                    print("id things: ${things.id}");
+                                  },
+                                  child: Icon(Icons.delete, size: 24),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

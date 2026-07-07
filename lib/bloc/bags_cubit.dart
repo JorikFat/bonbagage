@@ -6,14 +6,9 @@ class BagsCubit extends Cubit<List<BagsState>> {
   BagsCubit() : super([]);
 
   int idCounter = 0;
-  int idThing = 0;
 
   void addBags(String title) {
-    final newBags = BagsState(
-      id: idCounter++,
-      title: title,
-      things: []
-    );
+    final newBags = BagsState(id: idCounter++, title: title, things: []);
 
     emit([...state, newBags]);
   }
@@ -21,10 +16,7 @@ class BagsCubit extends Cubit<List<BagsState>> {
   void updateBags(String title, int id) {
     final update = state.map((items) {
       if (items.id == id) {
-        return items.copyWith(
-          title: title,
-          id: id
-        );
+        return items.copyWith(title: title, id: id);
       } else {
         return items;
       }
@@ -42,27 +34,28 @@ class BagsCubit extends Cubit<List<BagsState>> {
 
   void deleteThings(int id) {
     final List<BagsState> delete = state.map((bag) {
-      if (bag.things.any((things) => things.id == id)) {
-        List<Thing> deleteThing = List.from((bag.things)..removeWhere((things) => things.id == id));
-        return bag.copyWith(
-          things: deleteThing,
-        );
-      } else {
+      if (bag.things.any((thing) => thing.id == id)) {
+        final deleteThing = bag.things.where((things) => things.id != id).toList();
+        return bag.copyWith(things: deleteThing);
+      } {
         return bag;
       }
     }).toList();
-    emit(delete);
+
+    if (delete != state) {
+      emit(delete);
+    }
+  }
+
   void addThingInList(String title, int id) {
     final addThing = state.map((thing) {
       if (thing.id == id) {
         final thingsList = Thing(
           id: DateTime.now().millisecondsSinceEpoch,
-          name: title
+          name: title,
         );
         final List<Thing> updateList = List.from(thing.things)..add(thingsList);
-        final copyThing = thing.copyWith(
-          things: updateList,
-        );
+        final copyThing = thing.copyWith(things: updateList);
         return copyThing;
       } else {
         return thing;
