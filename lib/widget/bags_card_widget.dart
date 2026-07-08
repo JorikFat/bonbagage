@@ -70,10 +70,12 @@ class BagsCardWidget extends StatelessWidget {
                                   },
                                   child: Text(things.name),
                                 ),
+                                Text(things.name),
                                 GestureDetector(
                                   onTap: () {
                                     final cubit = context.read<BagsCubit>();
                                     cubit.deleteThings(things.id);
+                                    print("id things: ${things.id}");
                                   },
                                   child: Icon(Icons.delete, size: 24),
                                 ),
