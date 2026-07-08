@@ -2,6 +2,7 @@ import 'package:bonbagage/bloc/bags_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
 import 'package:bonbagage/widget/dialog_add_thing.dart';
 import 'package:bonbagage/widget/dialog_edit_bags_widget.dart';
+import 'package:bonbagage/widget/dialog_edit_thing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,22 +52,40 @@ class BagsCardWidget extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 1,
+                  itemCount: bag.things.length,
                   itemBuilder: (context, index) {
+                    final things = bag.things[index];
                     return Align(
                       alignment: Alignment.topLeft,
                       child: Column(
-                      children: bag.things.map((things) {
-                        return Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(things.name),
-                        );
-                      }).toList(),
-                                        ),
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onLongPress: () {
+                                    final cubit = context.read<BagsCubit>();
+                                    showDialogEditThing(context, things.name, cubit, things.id);
+                                  },
+                                  child: Text(things.name),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    final cubit = context.read<BagsCubit>();
+                                    cubit.deleteThings(things.id);
+                                  },
+                                  child: Icon(Icons.delete, size: 24),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

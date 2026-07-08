@@ -40,6 +40,21 @@ class BagsCubit extends Cubit<List<BagsState>> {
     emit(delete);
   }
 
+  void deleteThings(int id) {
+    final List<BagsState> delete = state.map((bag) {
+      if (bag.things.any((thing) => thing.id == id)) {
+        final deleteThing = bag.things.where((things) => things.id != id).toList();
+        return bag.copyWith(things: deleteThing);
+      } {
+        return bag;
+      }
+    }).toList();
+
+    if (delete != state) {
+      emit(delete);
+    }
+  }
+
   void addThingInList(String title, int id) {
     final addThing = state.map((thing) {
       if (thing.id == id) {
@@ -57,5 +72,27 @@ class BagsCubit extends Cubit<List<BagsState>> {
       }
     }).toList();
     emit(addThing);
+  }
+
+  void editThing(String title, int id) {
+    final update = state.map((bag) {
+      if (bag.things.any((thing) => thing.id == id)) {
+        final List<Thing> editThing = bag.things.map((thing) {
+          if (thing.id == id) {
+            return thing.copyWith(
+              name: title
+            );
+          } else {
+            return thing;
+          }
+        }).toList();
+        return bag.copyWith(
+          things: editThing
+        );
+      } else {
+        return bag;
+      }
+    }).toList();
+    emit(update);
   }
 }
