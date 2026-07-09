@@ -3,7 +3,41 @@ import 'package:bonbagage/model/things_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BagsCubit extends Cubit<List<BagsState>> {
-  BagsCubit() : super([]);
+  BagsCubit()
+    : super([
+        BagsState(
+          id: 0,
+          title: "Рюкзак",
+          things: [
+            Thing(id: 1, name: "ноутбук"),
+            Thing(id: 2, name: "зарядка"),
+            Thing(id: 3, name: "блокнот"),
+            Thing(id: 4, name: "ручка"),
+            Thing(id: 5, name: "мышка"),
+            Thing(id: 6, name: "провода"),
+          ],
+        ),
+        BagsState(
+          id: 0,
+          title: "Сумка",
+          things: [
+            Thing(id: 7, name: "штаны синие"),
+            Thing(id: 8, name: "футболка белая"),
+            Thing(id: 9, name: "футболка синяя"),
+            Thing(id: 10, name: "рубашка зеленая"),
+          ],
+        ),
+        BagsState(
+          id: 0,
+          title: "Умывалка",
+          things: [
+            Thing(id: 11, name: "зубная щетка"),
+            Thing(id: 12, name: "зубная паста"),
+            Thing(id: 13, name: "дезодорант"),
+            Thing(id: 14, name: "одеколон"),
+          ],
+        ),
+      ]);
 
   int idCounter = 0;
 
@@ -35,9 +69,12 @@ class BagsCubit extends Cubit<List<BagsState>> {
   void deleteThings(int id) {
     final List<BagsState> delete = state.map((bag) {
       if (bag.things.any((thing) => thing.id == id)) {
-        final deleteThing = bag.things.where((things) => things.id != id).toList();
+        final deleteThing = bag.things
+            .where((things) => things.id != id)
+            .toList();
         return bag.copyWith(things: deleteThing);
-      } {
+      }
+      {
         return bag;
       }
     }).toList();
@@ -69,16 +106,12 @@ class BagsCubit extends Cubit<List<BagsState>> {
       if (bag.things.any((thing) => thing.id == id)) {
         final List<Thing> editThing = bag.things.map((thing) {
           if (thing.id == id) {
-            return thing.copyWith(
-              name: title
-            );
+            return thing.copyWith(name: title);
           } else {
             return thing;
           }
         }).toList();
-        return bag.copyWith(
-          things: editThing
-        );
+        return bag.copyWith(things: editThing);
       } else {
         return bag;
       }
