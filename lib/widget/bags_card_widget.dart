@@ -25,7 +25,6 @@ class BagsCardWidget extends StatelessWidget {
       child: Card(
         color: Color(0xFFf2f2f2),
         child: SizedBox(
-          height: 120,
           child: Column(
             children: [
               Row(
@@ -50,26 +49,21 @@ class BagsCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: bag.things.length,
-                  itemBuilder: (context, index) {
-                    final things = bag.things[index];
-                    return Align(
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
+              Column(
+                children: bag.things.map((things) {
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: GestureDetector(
+                            onLongPress: () {
+                              final cubit = context.read<BagsCubit>();
+                              showDialogEditThing(context, things.name, cubit, things.id);
+                            },
                             child: Row(
                               children: [
-                                GestureDetector(
-                                  onLongPress: () {
-                                    final cubit = context.read<BagsCubit>();
-                                    showDialogEditThing(context, things.name, cubit, things.id);
-                                  },
-                                  child: Text(things.name),
-                                ),
                                 Text(things.name),
                                 GestureDetector(
                                   onTap: () {
@@ -77,16 +71,16 @@ class BagsCardWidget extends StatelessWidget {
                                     cubit.deleteThings(things.id);
                                     print("id things: ${things.id}");
                                   },
-                                  child: Icon(Icons.delete, size: 24),
+                                  child: Icon(Icons.delete, size: 22),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
               ),
             ],
           ),
