@@ -32,10 +32,7 @@ class JourneysView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final obj = state[index];
                           return CardJourneys(
-                            city: obj.title,
-                            startDate: obj.startDate,
-                            endDate: obj.endDate,
-                            id: obj.id,
+                            journal: obj,
                           );
                         },
                       );

@@ -1,21 +1,13 @@
 import 'package:bonbagage/bloc/journeys_cubit.dart';
+import 'package:bonbagage/bloc/journeys_state.dart';
 import 'package:bonbagage/widget/dialog_edit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardJourneys extends StatelessWidget {
-  const CardJourneys({
-    super.key,
-    required this.city,
-    required this.startDate,
-    required this.endDate,
-    required this.id
-  });
+  const CardJourneys({super.key, required this.journal});
 
-  final city;
-  final startDate;
-  final endDate;
-  final id;
+  final JourneysState journal;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +16,17 @@ class CardJourneys extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         final cubit = context.read<JourneysCubit>();
-        showDialogEdit(context, city, startDate, endDate, id, cubit);
+        showDialogEdit(
+          context,
+          journal.title,
+          journal.startDate,
+          journal.endDate,
+          journal.id,
+          cubit,
+        );
+      },
+      onDoubleTap: () {
+        Navigator.pushNamed(context, '/editJourney', arguments: journal);
       },
       child: Card(
         color: Color(0xFFf2f2f2),
@@ -36,7 +38,7 @@ class CardJourneys extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  city,
+                  journal.title,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),
@@ -44,7 +46,7 @@ class CardJourneys extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  "$startDate - $endDate",
+                  "${journal.startDate} - ${journal.endDate}",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),

@@ -1,16 +1,15 @@
 import 'package:bonbagage/bloc/bags_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
+import 'package:bonbagage/bloc/journeys_state.dart';
 import 'package:bonbagage/widget/bags_card_widget.dart';
 import 'package:bonbagage/widget/dialog_editJourney_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(MaterialApp(home: EditJourneysView()));
-}
-
 class EditJourneysView extends StatelessWidget {
-  const EditJourneysView({super.key});
+  const EditJourneysView({super.key, required this.journey});
+
+  final JourneysState journey;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,8 @@ class EditJourneysView extends StatelessWidget {
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Москва"),
-              actions: <Widget>[
+              title: Text(journey.title),
+              actions: [
                 IconButton(
                   onPressed: () {
                     final cubit = context.read<BagsCubit>();
