@@ -1,6 +1,6 @@
 import 'package:bonbagage/bloc/journeys_cubit.dart';
 import 'package:bonbagage/bloc/journeys_state.dart';
-import 'package:bonbagage/widget/dialog_widget.dart';
+import 'package:bonbagage/widget/dialog_add_journey_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bonbagage/widget/journeys_card_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
