@@ -18,11 +18,8 @@ class CardJourneys extends StatelessWidget {
         final cubit = context.read<JourneysCubit>();
         showDialogEdit(
           context,
-          journal.title,
-          journal.startDate,
-          journal.endDate,
-          journal.id,
           cubit,
+          journal
         );
       },
       onDoubleTap: () {

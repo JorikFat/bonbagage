@@ -15,13 +15,22 @@ class JourneyDialogAdd extends StatelessWidget {
   const JourneyDialogAdd({super.key, required this.cubit});
   final JourneysCubit cubit;
 
+  static final TextEditingController controllerCity = TextEditingController();
+  static final TextEditingController controllerEndDate = TextEditingController();
+  static final TextEditingController controllerStartDate = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final fields = HelpersTextField.dataTextField(
+      controllerTitle: controllerCity,
+      controllerEndDate: controllerEndDate,
+      controllerStartDate: controllerStartDate
+    );
     return AlertDialog(
       content: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
-        children: HelpersTextField.dataTextField().map((element) {
+        children: fields.map((element) {
           return Padding(
             padding: EdgeInsets.only(top: 5),
             child: TextField(
@@ -53,13 +62,13 @@ class JourneyDialogAdd extends StatelessWidget {
               style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
                 cubit.addJourneys(
-                  HelpersTextField.controllerCity.text,
-                  HelpersTextField.controllerStartDate.text,
-                  HelpersTextField.controllerEndDate.text,
+                  controllerCity.text,
+                  controllerStartDate.text,
+                  controllerEndDate.text,
                 );
-                HelpersTextField.controllerCity.clear();
-                HelpersTextField.controllerStartDate.clear();
-                HelpersTextField.controllerEndDate.clear();
+                controllerCity.clear();
+                controllerStartDate.clear();
+                controllerEndDate.clear();
                 Navigator.pop(context);
               },
               child: Text(

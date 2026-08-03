@@ -1,24 +1,17 @@
 import 'package:bonbagage/bloc/journeys_cubit.dart';
+import 'package:bonbagage/bloc/journeys_state.dart';
+import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
 void showDialogEdit(
   BuildContext context,
-  String city,
-  String startDate,
-  String endDate,
-  int id,
-  JourneysCubit cubit
+  JourneysCubit cubit,
+  JourneysState journey,
 ) {
   showDialog(
     context: context,
     builder: (editDialogContext) {
-      return JourneyEditDialog(
-        city: city,
-        startDate: startDate,
-        endDate: endDate,
-        id: id,
-        cubit: cubit,
-      );
+      return JourneyEditDialog(cubit: cubit, journey: journey);
     },
   );
 }
@@ -26,52 +19,29 @@ void showDialogEdit(
 class JourneyEditDialog extends StatelessWidget {
   const JourneyEditDialog({
     super.key,
-    required this.city,
-    required this.startDate,
-    required this.endDate,
-    required this.id,
-    required this.cubit
+    required this.cubit,
+    required this.journey,
   });
 
   final JourneysCubit cubit;
-
-  final String city;
-  final String startDate;
-  final String endDate;
-  final int id;
+  final JourneysState journey;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controllerCityEdit = TextEditingController(
-      text: city,
+    final TextEditingController controllerCityEdit = TextEditingController(
+      text: journey.title,
     );
-    final TextEditingController _controllerStartDateEdit =
-        TextEditingController(text: startDate);
-    final TextEditingController _controllerEndDateEdit = TextEditingController(
-      text: endDate,
+    final TextEditingController controllerStartDateEdit = TextEditingController(
+      text: journey.startDate,
     );
-
-    final BorderRadius border = BorderRadius.all(Radius.circular(12));
-    final BorderSide borderSide = BorderSide(width: 3, color: Colors.black26);
-    final TextStyle textStyleHintText = TextStyle(
-      fontSize: 16,
-      color: Colors.black54,
+    final TextEditingController controllerEndDateEdit = TextEditingController(
+      text: journey.endDate,
     );
 
-    final focusedBorderTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final enableBorderTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final elevatedButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.black12,
-      shape: RoundedRectangleBorder(borderRadius: border),
-      padding: EdgeInsets.only(left: 10, right: 10),
+    final fields = HelpersTextField.dataTextField(
+      controllerTitle: controllerCityEdit,
+      controllerEndDate: controllerStartDateEdit,
+      controllerStartDate: controllerEndDateEdit,
     );
 
     return AlertDialog(
@@ -79,9 +49,9 @@ class JourneyEditDialog extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.deleteJourneys(id);
+                cubit.deleteJourneys(journey.id);
                 Navigator.pop(context);
               },
               child: Text(
@@ -91,7 +61,7 @@ class JourneyEditDialog extends StatelessWidget {
             ),
             SizedBox(width: 10),
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -102,13 +72,13 @@ class JourneyEditDialog extends StatelessWidget {
             ),
             SizedBox(width: 10),
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
                 cubit.updateJourneys(
-                  _controllerCityEdit.text,
-                  _controllerStartDateEdit.text,
-                  _controllerEndDateEdit.text,
-                  id
+                  controllerCityEdit.text,
+                  controllerStartDateEdit.text,
+                  controllerEndDateEdit.text,
+                  journey.id,
                 );
                 Navigator.pop(context);
               },
@@ -123,40 +93,19 @@ class JourneyEditDialog extends StatelessWidget {
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: _controllerCityEdit,
-            cursorColor: Colors.black26,
-            decoration: InputDecoration(
-              hintText: "City",
-              hintStyle: textStyleHintText,
-              focusedBorder: focusedBorderTextField,
-              enabledBorder: enableBorderTextField,
+        children: fields.map((element) {
+          return Padding(
+            padding: EdgeInsets.only(top: 5),
+            child: TextField(
+              controller: element['controller'],
+              decoration: InputDecoration(
+                focusedBorder: HelpersTextField.styleTextField,
+                enabledBorder: HelpersTextField.styleTextField,
+                hintText: element['hintText'],
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            controller: _controllerStartDateEdit,
-            cursorColor: Colors.black26,
-            decoration: InputDecoration(
-              hintText: "start date",
-              hintStyle: textStyleHintText,
-              focusedBorder: focusedBorderTextField,
-              enabledBorder: enableBorderTextField,
-            ),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            controller: _controllerEndDateEdit,
-            cursorColor: Colors.black26,
-            decoration: InputDecoration(
-              hintText: "end date",
-              hintStyle: textStyleHintText,
-              focusedBorder: focusedBorderTextField,
-              enabledBorder: enableBorderTextField,
-            ),
-          ),
-        ],
+          );
+        }).toList(),
       ),
     );
   }

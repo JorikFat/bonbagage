@@ -17,9 +17,11 @@ class DialogEditjourneyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controllerTitle = TextEditingController();
+
     return AlertDialog(
       content: TextField(
-        controller: HelpersTextField.controllerTitle,
+        controller: controllerTitle,
         cursorColor: Colors.black26,
         decoration: InputDecoration(
           focusedBorder: HelpersTextField.styleTextField,
@@ -41,8 +43,8 @@ class DialogEditjourneyWidget extends StatelessWidget {
             ElevatedButton(
               style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.addBags(HelpersTextField.controllerTitle.text);
-                HelpersTextField.controllerTitle.clear();
+                cubit.addBags(controllerTitle.text);
+                controllerTitle.clear();
                 Navigator.pop(context);
               },
               child: Text(
