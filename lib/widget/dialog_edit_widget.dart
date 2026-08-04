@@ -16,7 +16,7 @@ void showDialogEdit(
   );
 }
 
-class JourneyEditDialog extends StatelessWidget {
+class JourneyEditDialog extends StatefulWidget {
   const JourneyEditDialog({
     super.key,
     required this.cubit,
@@ -27,17 +27,32 @@ class JourneyEditDialog extends StatelessWidget {
   final JourneysState journey;
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController controllerCityEdit = TextEditingController(
-      text: journey.title,
-    );
-    final TextEditingController controllerStartDateEdit = TextEditingController(
-      text: journey.startDate,
-    );
-    final TextEditingController controllerEndDateEdit = TextEditingController(
-      text: journey.endDate,
-    );
+  State<JourneyEditDialog> createState() => _JourneyEditDialogState();
+}
 
+class _JourneyEditDialogState extends State<JourneyEditDialog> {
+  late final TextEditingController controllerCityEdit;
+  late final TextEditingController controllerStartDateEdit;
+  late final TextEditingController controllerEndDateEdit;
+
+  @override
+  void initState() {
+    super.initState();
+    controllerCityEdit = TextEditingController(text: widget.journey.title);
+    controllerStartDateEdit = TextEditingController(text: widget.journey.startDate);
+    controllerEndDateEdit = TextEditingController(text: widget.journey.endDate);
+  }
+
+  @override
+  void dispose() {
+    controllerCityEdit.dispose();
+    controllerStartDateEdit.dispose();
+    controllerEndDateEdit.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final fields = HelpersTextField.dataTextField(
       controllerTitle: controllerCityEdit,
       controllerEndDate: controllerStartDateEdit,
@@ -51,7 +66,7 @@ class JourneyEditDialog extends StatelessWidget {
             ElevatedButton(
               style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.deleteJourneys(journey.id);
+                widget.cubit.deleteJourneys(widget.journey.id);
                 Navigator.pop(context);
               },
               child: Text(
@@ -74,11 +89,11 @@ class JourneyEditDialog extends StatelessWidget {
             ElevatedButton(
               style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.updateJourneys(
+                widget.cubit.updateJourneys(
                   controllerCityEdit.text,
                   controllerStartDateEdit.text,
                   controllerEndDateEdit.text,
-                  journey.id,
+                  widget.journey.id,
                 );
                 Navigator.pop(context);
               },

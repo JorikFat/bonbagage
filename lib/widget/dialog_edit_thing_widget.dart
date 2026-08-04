@@ -1,7 +1,13 @@
 import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
-void showDialogEditThing(BuildContext context, String thingName, BagsCubit cubit, int id) {
+void showDialogEditThing(
+  BuildContext context,
+  String thingName,
+  BagsCubit cubit,
+  int id,
+) {
   showDialog(
     context: context,
     builder: (context) {
@@ -10,43 +16,46 @@ void showDialogEditThing(BuildContext context, String thingName, BagsCubit cubit
   );
 }
 
-class DialogEditThingWidget extends StatelessWidget {
-  const DialogEditThingWidget({super.key, required this.thingName, required this.cubit, required this.id});
+class DialogEditThingWidget extends StatefulWidget {
+  const DialogEditThingWidget({
+    super.key,
+    required this.thingName,
+    required this.cubit,
+    required this.id,
+  });
 
   final String thingName;
   final int id;
   final BagsCubit cubit;
 
   @override
+  State<DialogEditThingWidget> createState() => _DialogEditThingWidgetState();
+}
+
+class _DialogEditThingWidgetState extends State<DialogEditThingWidget> {
+  late final TextEditingController controllerThing;
+
+  @override
+  void initState() {
+    super.initState();
+    controllerThing = TextEditingController(text: widget.thingName);
+  }
+
+  @override
+  void dispose() {
+    controllerThing.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController _controllerThing = TextEditingController(text: thingName);
-
-    final BorderRadius border = BorderRadius.all(Radius.circular(12));
-    final BorderSide borderSide = BorderSide(width: 3, color: Colors.black26);
-
-    final enableAndFocusedTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final TextStyle textStyleHintText = TextStyle(
-      fontSize: 16,
-      color: Colors.black54,
-    );
-
-    final elevatedButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.black12,
-      shape: RoundedRectangleBorder(borderRadius: border),
-      padding: EdgeInsets.only(left: 10, right: 10),
-    );
-
     return AlertDialog(
       content: TextField(
-        controller: _controllerThing,
+        controller: controllerThing,
         decoration: InputDecoration(
           hintText: "Thing...",
-          enabledBorder: enableAndFocusedTextField,
-          focusedBorder: enableAndFocusedTextField,
+          enabledBorder: HelpersTextField.styleTextField,
+          focusedBorder: HelpersTextField.styleTextField,
         ),
       ),
       actions: <Widget>[
@@ -54,20 +63,17 @@ class DialogEditThingWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () => Navigator.pop(context),
-              child: Text("Отмена", style: textStyleHintText),
+              child: Text("Отмена", style: TextStyle(fontSize: 14, color: Colors.black54)),
             ),
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.editThing(
-                  _controllerThing.text,
-                  id,
-                );
+                widget.cubit.editThing(controllerThing.text, widget.id);
                 Navigator.pop(context);
               },
-              child: Text("Сохранить", style: textStyleHintText),
+              child: Text("Сохранить", style: TextStyle(fontSize: 14, color: Colors.black54)),
             ),
           ],
         ),

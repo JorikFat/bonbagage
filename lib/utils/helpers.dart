@@ -27,5 +27,6 @@ class HelpersElevatedButton {
   static final elevatedButtonStyle = ElevatedButton.styleFrom(
     backgroundColor: Colors.black12,
     shape: RoundedRectangleBorder(borderRadius: HelpersTextField.border),
+    padding: EdgeInsets.only(left: 10, right: 10)
   );
 }

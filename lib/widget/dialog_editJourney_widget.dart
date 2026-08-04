@@ -11,14 +11,31 @@ void showEditJourneyDialog(BuildContext context, BagsCubit cubit) {
   );
 }
 
-class DialogEditjourneyWidget extends StatelessWidget {
+class DialogEditjourneyWidget extends StatefulWidget {
   const DialogEditjourneyWidget({super.key, required this.cubit});
   final BagsCubit cubit;
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController controllerTitle = TextEditingController();
+  State<DialogEditjourneyWidget> createState() => _DialogEditjourneyWidgetState();
+}
 
+class _DialogEditjourneyWidgetState extends State<DialogEditjourneyWidget> {
+  late final TextEditingController controllerTitle;
+
+  @override
+  void initState() {
+    super.initState();
+    controllerTitle = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    controllerTitle.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       content: TextField(
         controller: controllerTitle,
@@ -43,8 +60,7 @@ class DialogEditjourneyWidget extends StatelessWidget {
             ElevatedButton(
               style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.addBags(controllerTitle.text);
-                controllerTitle.clear();
+                widget.cubit.addBags(controllerTitle.text);
                 Navigator.pop(context);
               },
               child: Text(
