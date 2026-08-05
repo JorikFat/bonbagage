@@ -11,8 +11,6 @@ class CardJourneys extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final isTable = width >= 600;
     return GestureDetector(
       onLongPress: () {
         final cubit = context.read<JourneysCubit>();
@@ -28,7 +26,7 @@ class CardJourneys extends StatelessWidget {
       child: Card(
         color: Color(0xFFf2f2f2),
         child: SizedBox(
-          height: isTable ? width * 0.1 : width * 0.2,
+          height: 70,
           child: Row(
             children: [
               SizedBox(width: 10),
