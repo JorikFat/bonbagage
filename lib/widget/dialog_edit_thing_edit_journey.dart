@@ -11,13 +11,13 @@ void showDialogEditThing(
   showDialog(
     context: context,
     builder: (context) {
-      return DialogEditThingWidget(thingName: thingName, cubit: cubit, id: id);
+      return DialogEditThingEditJourney(thingName: thingName, cubit: cubit, id: id);
     },
   );
 }
 
-class DialogEditThingWidget extends StatefulWidget {
-  const DialogEditThingWidget({
+class DialogEditThingEditJourney extends StatefulWidget {
+  const DialogEditThingEditJourney({
     super.key,
     required this.thingName,
     required this.cubit,
@@ -29,10 +29,10 @@ class DialogEditThingWidget extends StatefulWidget {
   final BagsCubit cubit;
 
   @override
-  State<DialogEditThingWidget> createState() => _DialogEditThingWidgetState();
+  State<DialogEditThingEditJourney> createState() => _DialogEditThingEditJourneyState();
 }
 
-class _DialogEditThingWidgetState extends State<DialogEditThingWidget> {
+class _DialogEditThingEditJourneyState extends State<DialogEditThingEditJourney> {
   late final TextEditingController controllerThing;
 
   @override

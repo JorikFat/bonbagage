@@ -3,7 +3,7 @@ import 'package:bonbagage/bloc/journeys_state.dart';
 import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
-void showDialogEdit(
+void showEditDialog(
   BuildContext context,
   JourneysCubit cubit,
   JourneysState journey,

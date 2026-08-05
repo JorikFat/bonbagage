@@ -2,24 +2,24 @@ import 'package:bonbagage/bloc/bags_cubit.dart';
 import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
-void showEditJourneyDialog(BuildContext context, BagsCubit cubit) {
+void showAddDialogEditJourney(BuildContext context, BagsCubit cubit) {
   showDialog(
     context: context,
     builder: (dialogContext) {
-      return DialogEditjourneyWidget(cubit: cubit);
+      return DialogAddEditJourney(cubit: cubit);
     },
   );
 }
 
-class DialogEditjourneyWidget extends StatefulWidget {
-  const DialogEditjourneyWidget({super.key, required this.cubit});
+class DialogAddEditJourney extends StatefulWidget {
+  const DialogAddEditJourney({super.key, required this.cubit});
   final BagsCubit cubit;
 
   @override
-  State<DialogEditjourneyWidget> createState() => _DialogEditjourneyWidgetState();
+  State<DialogAddEditJourney> createState() => _DialogAddEditJourneyState();
 }
 
-class _DialogEditjourneyWidgetState extends State<DialogEditjourneyWidget> {
+class _DialogAddEditJourneyState extends State<DialogAddEditJourney> {
   late final TextEditingController controllerTitle;
 
   @override

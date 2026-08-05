@@ -1,13 +1,13 @@
 import 'package:bonbagage/bloc/bags_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
-import 'package:bonbagage/widget/dialog_add_thing.dart';
-import 'package:bonbagage/widget/dialog_edit_bags_widget.dart';
-import 'package:bonbagage/widget/dialog_edit_thing_widget.dart';
+import 'package:bonbagage/widget/dialog_add_thing_edit_journey.dart';
+import 'package:bonbagage/widget/dialog_edit_bags.dart';
+import 'package:bonbagage/widget/dialog_edit_thing_edit_journey.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BagsCardWidget extends StatelessWidget {
-  const BagsCardWidget({super.key, required this.bag});
+class BagsCard extends StatelessWidget {
+  const BagsCard({super.key, required this.bag});
   final BagsState bag;
 
   @override
@@ -15,7 +15,7 @@ class BagsCardWidget extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         final cubit = context.read<BagsCubit>();
-        showDialogEditBags(
+        showEditBagsDialog(
           context: context,
           bagsName: bag.title,
           cubit: cubit,
@@ -43,7 +43,7 @@ class BagsCardWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       final cubit = context.read<BagsCubit>();
-                      showDialogAddThing(context, bag, cubit);
+                      showAddThingDialog(context, bag, cubit);
                     },
                     icon: Icon(Icons.add),
                   ),

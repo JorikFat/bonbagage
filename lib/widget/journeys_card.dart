@@ -1,6 +1,6 @@
 import 'package:bonbagage/bloc/journeys_cubit.dart';
 import 'package:bonbagage/bloc/journeys_state.dart';
-import 'package:bonbagage/widget/dialog_edit_widget.dart';
+import 'package:bonbagage/widget/dialog_edit_journey.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +16,7 @@ class CardJourneys extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         final cubit = context.read<JourneysCubit>();
-        showDialogEdit(
+        showEditDialog(
           context,
           cubit,
           journal

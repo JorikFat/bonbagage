@@ -2,17 +2,17 @@ import 'package:bonbagage/bloc/journeys_cubit.dart';
 import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
-void showDialogAdd(BuildContext context, JourneysCubit cubit) {
+void showAddDialog(BuildContext context, JourneysCubit cubit) {
   showDialog(
     context: context,
     builder: (dialogContext) {
-      return JourneyDialogAdd(cubit: cubit);
+      return DialogAddJourney(cubit: cubit);
     },
   );
 }
 
-class JourneyDialogAdd extends StatelessWidget {
-  const JourneyDialogAdd({super.key, required this.cubit});
+class DialogAddJourney extends StatelessWidget {
+  const DialogAddJourney({super.key, required this.cubit});
   final JourneysCubit cubit;
 
   static final TextEditingController controllerCity = TextEditingController();
