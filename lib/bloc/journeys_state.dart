@@ -1,27 +1,15 @@
-class JourneysState {
-  final String title;
-  final String startDate;
-  final String endDate;
-  final int id;
+import 'package:bonbagage/model/journey_model.dart';
 
-  JourneysState({
-    required this.title,
-    required this.startDate,
-    required this.endDate,
-    required this.id
-  });
+class JourneysState {
+  final Journey journey;
+
+  JourneysState({required this.journey});
 
   JourneysState copyWith({
-    String? title,
-    String? startDate,
-    String? endDate,
-    int? id
+    Journey? journey
   }) {
     return JourneysState(
-      title: title ?? this.title,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
-      id: id ?? this.id
+      journey: journey ?? this.journey
     );
   }
 }

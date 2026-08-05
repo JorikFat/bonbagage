@@ -1,7 +1,8 @@
 import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
-void showDialogEditBags({
+void showEditBagsDialog({
   required BuildContext context,
   required String bagsName,
   required BagsCubit cubit,
@@ -11,13 +12,13 @@ void showDialogEditBags({
   showDialog(
     context: context,
     builder: (bagsContext) {
-      return DialogEditBagsWidget(bagsName: bagsName, id: id, cubit: cubit);
+      return DialogEditBags(bagsName: bagsName, id: id, cubit: cubit);
     },
   );
 }
 
-class DialogEditBagsWidget extends StatelessWidget {
-  const DialogEditBagsWidget({
+class DialogEditBags extends StatefulWidget {
+  const DialogEditBags({
     super.key,
     required this.bagsName,
     required this.id,
@@ -29,34 +30,26 @@ class DialogEditBagsWidget extends StatelessWidget {
   final BagsCubit cubit;
 
   @override
+  State<DialogEditBags> createState() => _DialogEditBagsState();
+}
+
+class _DialogEditBagsState extends State<DialogEditBags> {
+  late final TextEditingController _controllerBags;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerBags = TextEditingController(text: widget.bagsName);
+  }
+
+  @override
+  void dispose() {
+    _controllerBags.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController _controllerBags = TextEditingController(
-      text: bagsName,
-    );
-
-    final BorderRadius border = BorderRadius.all(Radius.circular(12));
-    final BorderSide borderSide = BorderSide(width: 3, color: Colors.black26);
-    final TextStyle textStyleHintText = TextStyle(
-      fontSize: 16,
-      color: Colors.black54,
-    );
-
-    final focusedBorderTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final enableBorderTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final elevatedButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.black12,
-      shape: RoundedRectangleBorder(borderRadius: border),
-      padding: EdgeInsets.only(left: 10, right: 10),
-    );
-
     return AlertDialog(
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -64,9 +57,8 @@ class DialogEditBagsWidget extends StatelessWidget {
           TextField(
             controller: _controllerBags,
             decoration: InputDecoration(
-              hintStyle: textStyleHintText,
-              focusedBorder: focusedBorderTextField,
-              enabledBorder: enableBorderTextField,
+              focusedBorder: HelpersTextField.styleTextField,
+              enabledBorder: HelpersTextField.styleTextField,
             ),
           ),
         ],
@@ -75,9 +67,9 @@ class DialogEditBagsWidget extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.deleteBags(id);
+                widget.cubit.deleteBags(widget.id);
                 Navigator.pop(context);
               },
               child: Text(
@@ -87,7 +79,7 @@ class DialogEditBagsWidget extends StatelessWidget {
             ),
             SizedBox(width: 10),
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -98,11 +90,11 @@ class DialogEditBagsWidget extends StatelessWidget {
             ),
             SizedBox(width: 10),
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.updateBags(
+                widget.cubit.updateBags(
                   _controllerBags.text,
-                  id
+                  widget.id
                 );
                 Navigator.pop(context);
               },
