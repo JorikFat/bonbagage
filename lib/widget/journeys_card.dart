@@ -1,13 +1,13 @@
 import 'package:bonbagage/bloc/journeys_cubit.dart';
-import 'package:bonbagage/bloc/journeys_state.dart';
+import 'package:bonbagage/model/journey_model.dart';
 import 'package:bonbagage/widget/dialog_edit_journey.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardJourneys extends StatelessWidget {
-  const CardJourneys({super.key, required this.journal});
+  const CardJourneys({super.key, required this.journey});
 
-  final JourneysState journal;
+  final Journey journey;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class CardJourneys extends StatelessWidget {
         showEditDialog(
           context,
           cubit,
-          journal
+          journey
         );
       },
       onDoubleTap: () {
-        Navigator.pushNamed(context, '/editJourney', arguments: journal);
+        Navigator.pushNamed(context, '/editJourney', arguments: journey);
       },
       child: Card(
         color: Color(0xFFf2f2f2),
@@ -33,7 +33,7 @@ class CardJourneys extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  journal.title,
+                  journey.title,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),
@@ -41,7 +41,7 @@ class CardJourneys extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  "${journal.startDate} - ${journal.endDate}",
+                  "${journey.startDate} - ${journey.endDate}",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),

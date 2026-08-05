@@ -30,10 +30,8 @@ class JourneysView extends StatelessWidget {
                     : ListView.builder(
                         itemCount: state.length,
                         itemBuilder: (context, index) {
-                          final obj = state[index];
-                          return CardJourneys(
-                            journal: obj,
-                          );
+                          final obj = state.map((e) => e.journey).toList()[index];
+                          return CardJourneys(journey: obj);
                         },
                       );
               },
