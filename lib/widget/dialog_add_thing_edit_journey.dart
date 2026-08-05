@@ -1,5 +1,6 @@
 import 'package:bonbagage/bloc/bags_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
+import 'package:bonbagage/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
 void showAddThingDialog(BuildContext context, BagsState bags, BagsCubit cubit) {
@@ -11,49 +12,43 @@ void showAddThingDialog(BuildContext context, BagsState bags, BagsCubit cubit) {
   );
 }
 
-class DialogAddThingEditJourney extends StatelessWidget {
+class DialogAddThingEditJourney extends StatefulWidget {
   const DialogAddThingEditJourney({super.key, required this.bags, required this.cubit});
 
   final BagsState bags;
   final BagsCubit cubit;
 
   @override
+  State<DialogAddThingEditJourney> createState() => _DialogAddThingEditJourneyState();
+}
+
+class _DialogAddThingEditJourneyState extends State<DialogAddThingEditJourney> {
+  late final TextEditingController controllerThing;
+
+  @override
+  void initState() {
+    super.initState();
+    controllerThing = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController _controllerThing = TextEditingController();
-    final BorderRadius border = BorderRadius.all(Radius.circular(12));
-    final BorderSide borderSide = BorderSide(width: 3, color: Colors.black26);
-
-    final focusedBorderTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final enableBorderTextField = OutlineInputBorder(
-      borderRadius: border,
-      borderSide: borderSide,
-    );
-
-    final elevatedButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.black12,
-      shape: RoundedRectangleBorder(borderRadius: border),
-    );
-
     return AlertDialog(
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "Добавить в ${bags.title}",
+            "Добавить в ${widget.bags.title}",
             style: TextStyle(fontSize: 16, color: Colors.black54),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: TextField(
-              controller: _controllerThing,
+              controller: controllerThing,
               decoration: InputDecoration(
                 hintText: "Thing...",
-                focusedBorder: focusedBorderTextField,
-                enabledBorder: enableBorderTextField
+                focusedBorder: HelpersTextField.styleTextField,
+                enabledBorder: HelpersTextField.styleTextField
               ),
             ),
           ),
@@ -64,10 +59,9 @@ class DialogAddThingEditJourney extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () => {
                 Navigator.pop(context),
-                _controllerThing.clear()
               },
               child: Text(
                 "Отмена",
@@ -75,14 +69,13 @@ class DialogAddThingEditJourney extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              style: elevatedButtonStyle,
+              style: HelpersElevatedButton.elevatedButtonStyle,
               onPressed: () {
-                cubit.addThingInList(
-                  _controllerThing.text,
-                  bags.id
+                widget.cubit.addThingInList(
+                  controllerThing.text,
+                  widget.bags.id
                 );
                 Navigator.pop(context);
-                _controllerThing.clear();
               },
               child: Text(
                 "Добавить",
