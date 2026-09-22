@@ -1,8 +1,8 @@
 import 'package:bonbagage/bloc/journeys_cubit.dart';
 import 'package:bonbagage/bloc/journeys_state.dart';
-import 'package:bonbagage/widget/dialog_widget.dart';
+import 'package:bonbagage/widget/dialog_add_journey.dart';
 import 'package:flutter/material.dart';
-import 'package:bonbagage/widget/journeys_card_widget.dart';
+import 'package:bonbagage/widget/journeys_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class JourneysView extends StatelessWidget {
@@ -32,7 +32,12 @@ class JourneysView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final obj = state[index];
                           return CardJourneys(
-                            journal: obj,
+                            journey: JourneysState(
+                              title: obj.title,
+                              startDate: obj.startDate,
+                              endDate: obj.endDate,
+                              id: obj.id,
+                            ),
                           );
                         },
                       );
@@ -44,7 +49,7 @@ class JourneysView extends StatelessWidget {
               highlightElevation: 0,
               onPressed: () {
                 final cubit = context.read<JourneysCubit>();
-                showDialogAdd(context, cubit);
+                showAddDialog(context, cubit);
               },
               child: const Icon(Icons.add, color: Colors.black54, size: 25),
             ),

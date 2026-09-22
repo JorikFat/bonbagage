@@ -20,7 +20,7 @@ class JourneysState {
     return JourneysState(
       title: title ?? this.title,
       startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
+      endDate: endDate ?? this.startDate,
       id: id ?? this.id
     );
   }

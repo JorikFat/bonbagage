@@ -38,15 +38,16 @@ class JourneysCubit extends Cubit<List<JourneysState>> {
   }
 
   void updateJourneys(String title, String startDate, String endDate, int id) {
-    final update = state.map((items) {
-      if (items.id == id) {
-        return items.copyWith(
+    final update = state.map((journey) {
+      if (journey.id == id) {
+        return journey.copyWith(
           title: title,
           startDate: startDate,
           endDate: endDate,
+          id: id,
         );
       } else {
-        return items;
+        return journey;
       }
     }).toList();
 
