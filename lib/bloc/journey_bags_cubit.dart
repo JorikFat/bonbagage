@@ -30,16 +30,33 @@ class JourneyBagsCubit extends Cubit<List<BagsState>> {
       ]);
 
   void checkBoxSwitch(int id) {
-    final update = state.map((item) {
-      final thing = item.things.map((item) {
+    final update = state.map((itemBag) {
+      final thing = itemBag.things.map((item) {
         if (item.id == id) {
           return item.copyWith(isSelect: !item.isSelect);
         } else {
           return item;
         }
       }).toList();
-      return item.copyWith(things: thing);
+      final allSelect = thing.every((select) => select.isSelect == true);
+      return itemBag.copyWith(isSelect: allSelect, things: thing);
     }).toList();
-    emit(update);
+    emit([...update]);
+  }
+
+  void allSelectCheckBox(int id) {
+    final update = state.map((itemBag) {
+      if (itemBag.id == id) {
+        final allSelect = itemBag.things.every((select) => select.isSelect == true);
+        final select = !allSelect;
+        final thing = itemBag.things.map((item) {
+          return item.copyWith(isSelect: select);
+        }).toList();
+        return itemBag.copyWith(isSelect: select, things: thing);
+      } else {
+        return itemBag;
+      }
+    }).toList();
+    emit([...update]);
   }
 }

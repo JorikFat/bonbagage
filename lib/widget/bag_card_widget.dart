@@ -15,15 +15,28 @@ class BagCardWidget extends StatelessWidget {
       child: SizedBox(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  bag.title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            Row(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      bag.title,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Checkbox(
+                  value: bag.isSelect,
+                  onChanged: (bool? value) {
+                    cubit.allSelectCheckBox(bag.id);
+                  },
+                ),
+              ],
             ),
             Column(
               children: bag.things.map((list) {
@@ -38,7 +51,7 @@ class BagCardWidget extends StatelessWidget {
                           value: list.isSelect,
                           onChanged: (bool? value) {
                             cubit.checkBoxSwitch(list.id);
-                          }
+                          },
                         ),
                       ],
                     ),
