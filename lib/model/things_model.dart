@@ -1,16 +1,18 @@
 class Thing {
   final int id;
   final String name;
-
-  Thing({required this.id, required this.name});
+  final bool isSelect;
+  Thing({required this.id, required this.name, this.isSelect = false});
 
   Thing copyWith({
     int? id,
-    String? name
+    String? name,
+    bool? isSelect
   }) {
     return Thing(
       id: id ?? this.id,
-      name: name ?? this.name
+      name: name ?? this.name,
+      isSelect: isSelect ?? this.isSelect
     );
   }
 }

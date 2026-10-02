@@ -1,17 +1,12 @@
+import 'package:bonbagage/bloc/bags_state.dart';
+import 'package:bonbagage/bloc/journey_bags_cubit.dart';
 import 'package:flutter/material.dart';
 
-class BagCardWidget extends StatefulWidget {
-  const BagCardWidget({super.key, required this.thing, required this.items});
+class BagCardWidget extends StatelessWidget {
+  const BagCardWidget({super.key, required this.bag, required this.cubit});
 
-  final String thing;
-  final List items;
-
-  @override
-  State<BagCardWidget> createState() => _BagCardWidgetState();
-}
-
-class _BagCardWidgetState extends State<BagCardWidget> {
-  bool? isChecked = false;
+  final BagsState bag;
+  final JourneyBagsCubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +20,25 @@ class _BagCardWidgetState extends State<BagCardWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  widget.thing,
+                  bag.title,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
             Column(
-              children: widget.items.map((list) {
+              children: bag.things.map((list) {
                 return Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Row(
                       children: [
-                        Text(list, style: TextStyle(fontSize: 16)),
+                        Text(list.name, style: TextStyle(fontSize: 16)),
                         Checkbox(
-                          value: isChecked,
+                          value: list.isSelect,
                           onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value;
-                            });
-                          },
+                            cubit.checkBoxSwitch(list.id);
+                          }
                         ),
                       ],
                     ),

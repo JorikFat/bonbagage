@@ -1,4 +1,4 @@
-import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/bloc/journey_edit_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
 import 'package:bonbagage/bloc/journeys_cubit.dart';
 import 'package:bonbagage/bloc/journeys_state.dart';
