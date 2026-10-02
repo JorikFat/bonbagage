@@ -1,10 +1,10 @@
-import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/bloc/journey_edit_cubit.dart';
 import 'package:flutter/material.dart';
 
 void showDialogEditBags({
   required BuildContext context,
   required String bagsName,
-  required BagsCubit cubit,
+  required JourneyEditCubit cubit,
   required int id
   }) {
     
@@ -26,7 +26,7 @@ class DialogEditBagsWidget extends StatelessWidget {
 
   final String bagsName;
   final int id;
-  final BagsCubit cubit;
+  final JourneyEditCubit cubit;
 
   @override
   Widget build(BuildContext context) {

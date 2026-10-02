@@ -1,4 +1,4 @@
-import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/bloc/journey_edit_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
 import 'package:bonbagage/widget/dialog_add_thing.dart';
 import 'package:bonbagage/widget/dialog_edit_bags_widget.dart';
@@ -14,7 +14,7 @@ class BagsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPress: () {
-        final cubit = context.read<BagsCubit>();
+        final cubit = context.read<JourneyEditCubit>();
         showDialogEditBags(
           context: context,
           bagsName: bag.title,
@@ -42,7 +42,7 @@ class BagsCardWidget extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      final cubit = context.read<BagsCubit>();
+                      final cubit = context.read<JourneyEditCubit>();
                       showDialogAddThing(context, bag, cubit);
                     },
                     icon: Icon(Icons.add),
@@ -59,7 +59,7 @@ class BagsCardWidget extends StatelessWidget {
                           padding: EdgeInsets.only(left: 10),
                           child: GestureDetector(
                             onLongPress: () {
-                              final cubit = context.read<BagsCubit>();
+                              final cubit = context.read<JourneyEditCubit>();
                               showDialogEditThing(context, things.name, cubit, things.id);
                             },
                             child: Row(
@@ -67,7 +67,7 @@ class BagsCardWidget extends StatelessWidget {
                                 Text(things.name),
                                 GestureDetector(
                                   onTap: () {
-                                    final cubit = context.read<BagsCubit>();
+                                    final cubit = context.read<JourneyEditCubit>();
                                     cubit.deleteThings(things.id);
                                     print("id things: ${things.id}");
                                   },

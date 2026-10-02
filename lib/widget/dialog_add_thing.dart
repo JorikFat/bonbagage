@@ -1,8 +1,8 @@
-import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/bloc/journey_edit_cubit.dart';
 import 'package:bonbagage/bloc/bags_state.dart';
 import 'package:flutter/material.dart';
 
-void showDialogAddThing(BuildContext context, BagsState bags, BagsCubit cubit) {
+void showDialogAddThing(BuildContext context, BagsState bags, JourneyEditCubit cubit) {
   showDialog(
     context: context,
     builder: (thingContext) {
@@ -15,7 +15,7 @@ class DialogAddThing extends StatelessWidget {
   const DialogAddThing({super.key, required this.bags, required this.cubit});
 
   final BagsState bags;
-  final BagsCubit cubit;
+  final JourneyEditCubit cubit;
 
   @override
   Widget build(BuildContext context) {

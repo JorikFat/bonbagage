@@ -17,7 +17,7 @@ class JourneyEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BagsCubit(),
+      create: (context) => JourneyEditCubit(),
       child: Builder(
         builder: (context) {
           return Scaffold(
@@ -39,7 +39,7 @@ class JourneyEdit extends StatelessWidget {
                 ),
               ],
             ),
-            body: BlocBuilder<BagsCubit, List<BagsState>>(
+            body: BlocBuilder<JourneyEditCubit, List<BagsState>>(
               builder: (context, state) {
                 return ListView.builder(
                   itemCount: state.length,
@@ -52,7 +52,7 @@ class JourneyEdit extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                final cubit = context.read<BagsCubit>();
+                final cubit = context.read<JourneyEditCubit>();
                 showEditJourneyDialog(context, cubit);
               },
               child: Icon(Icons.add),

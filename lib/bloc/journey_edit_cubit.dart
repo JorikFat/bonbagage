@@ -2,8 +2,8 @@ import 'package:bonbagage/bloc/bags_state.dart';
 import 'package:bonbagage/model/things_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BagsCubit extends Cubit<List<BagsState>> {
-  BagsCubit()
+class JourneyEditCubit extends Cubit<List<BagsState>> {
+  JourneyEditCubit()
     : super([
         BagsState(
           id: 0,

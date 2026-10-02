@@ -1,7 +1,7 @@
-import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/bloc/journey_edit_cubit.dart';
 import 'package:flutter/material.dart';
 
-void showDialogEditThing(BuildContext context, String thingName, BagsCubit cubit, int id) {
+void showDialogEditThing(BuildContext context, String thingName, JourneyEditCubit cubit, int id) {
   showDialog(
     context: context,
     builder: (context) {
@@ -15,7 +15,7 @@ class DialogEditThingWidget extends StatelessWidget {
 
   final String thingName;
   final int id;
-  final BagsCubit cubit;
+  final JourneyEditCubit cubit;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
-import 'package:bonbagage/bloc/bags_cubit.dart';
+import 'package:bonbagage/bloc/journey_edit_cubit.dart';
 import 'package:flutter/material.dart';
 
-void showEditJourneyDialog(BuildContext context, BagsCubit cubit) {
+void showEditJourneyDialog(BuildContext context, JourneyEditCubit cubit) {
   showDialog(
     context: context,
     builder: (dialogContext) {
@@ -13,7 +13,7 @@ void showEditJourneyDialog(BuildContext context, BagsCubit cubit) {
 class DialogEditjourneyWidget extends StatelessWidget {
   const DialogEditjourneyWidget({super.key, required this.cubit});
 
-  final BagsCubit cubit;
+  final JourneyEditCubit cubit;
 
   static const BorderRadius border = BorderRadius.all(Radius.circular(12));
   static const BorderSide borderSide = BorderSide(
